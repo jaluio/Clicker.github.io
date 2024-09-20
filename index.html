@@ -21,6 +21,10 @@
             display: flex;
             justify-content: center;
             transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
         }
         .digit-container {
             position: relative;
@@ -133,25 +137,6 @@
             background-color: rgba(255, 255, 255, 0.5);
             margin: 0 10px;
         }
-        .tap-animation {
-            position: absolute;
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            background-color: rgba(255, 255, 255, 0.5);
-            pointer-events: none;
-            animation: tapAnimation 0.5s ease-out;
-        }
-        @keyframes tapAnimation {
-            0% {
-                transform: scale(0);
-                opacity: 1;
-            }
-            100% {
-                transform: scale(2);
-                opacity: 0;
-            }
-        }
     </style>
 </head>
 <body>
@@ -254,17 +239,6 @@
             updateCounter(count + 1);
         }
 
-        function createTapAnimation(x, y) {
-            const animation = document.createElement('div');
-            animation.className = 'tap-animation';
-            animation.style.left = `${x - 25}px`;
-            animation.style.top = `${y - 25}px`;
-            document.body.appendChild(animation);
-            setTimeout(() => {
-                animation.remove();
-            }, 500);
-        }
-
         initializeCounter();
 
         document.addEventListener('keydown', function(event) {
@@ -286,8 +260,6 @@
                 event.preventDefault();
                 isTouching = true;
                 incrementCounter();
-                const touch = event.touches[0];
-                createTapAnimation(touch.clientX, touch.clientY);
             }
         });
 
